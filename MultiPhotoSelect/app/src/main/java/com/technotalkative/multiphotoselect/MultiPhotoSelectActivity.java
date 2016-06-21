@@ -39,8 +39,11 @@ public class MultiPhotoSelectActivity extends AppCompatActivity {
 	public void btnChoosePhotosClick(View v){
 		
 		ArrayList<String> selectedItems = imageAdapter.getCheckedItems();
-		Toast.makeText(MultiPhotoSelectActivity.this, "Total photos selected: "+selectedItems.size(), Toast.LENGTH_SHORT).show();
-		Log.d(MultiPhotoSelectActivity.class.getSimpleName(), "Selected Items: " + selectedItems.toString());
+
+		if (selectedItems!= null && selectedItems.size() > 0) {
+			Toast.makeText(MultiPhotoSelectActivity.this, "Total photos selected: " + selectedItems.size(), Toast.LENGTH_SHORT).show();
+			Log.d(MultiPhotoSelectActivity.class.getSimpleName(), "Selected Items: " + selectedItems.toString());
+		}
 	}
 
 	private void populateImagesFromGallery() {
@@ -123,10 +126,11 @@ public class MultiPhotoSelectActivity extends AppCompatActivity {
 	private void initializeRecyclerView(ArrayList<String> imageUrls) {
 		imageAdapter = new ImageAdapter(this, imageUrls);
 
-		RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+		RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),4);
 		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 		recyclerView.setLayoutManager(layoutManager);
 		recyclerView.setItemAnimator(new DefaultItemAnimator());
+		recyclerView.addItemDecoration(new ItemOffsetDecoration(this, R.dimen.item_offset));
 		recyclerView.setAdapter(imageAdapter);
 	}
 
