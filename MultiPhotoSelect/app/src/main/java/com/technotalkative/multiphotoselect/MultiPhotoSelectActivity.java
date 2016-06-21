@@ -78,11 +78,24 @@ public class MultiPhotoSelectActivity extends AppCompatActivity {
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
 										   @NonNull int[] grantResults) {
-		if (requestCode == REQUEST_FOR_STORAGE_PERMISSION) {
-			if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				populateImagesFromGallery();
-			} else if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-				showPermissionRationaleSnackBar();
+
+		switch (requestCode) {
+
+			case REQUEST_FOR_STORAGE_PERMISSION: {
+
+				if (grantResults.length > 0) {
+					if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+						populateImagesFromGallery();
+					} else {
+						if (ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)) {
+							showPermissionRationaleSnackBar();
+						} else {
+							Toast.makeText(this, "Go to settings and enable permission", Toast.LENGTH_LONG).show();
+						}
+					}
+				}
+
+				break;
 			}
 		}
 	}
