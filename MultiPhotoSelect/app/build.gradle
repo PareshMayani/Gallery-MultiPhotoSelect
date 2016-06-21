@@ -18,8 +18,11 @@ android {
     }
 }
 
+def SUPPORT_LIB_VERSION = '24.0.0'
+
 dependencies {
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile "com.android.support:support-v4:$SUPPORT_LIB_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIB_VERSION"
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIB_VERSION"
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }
